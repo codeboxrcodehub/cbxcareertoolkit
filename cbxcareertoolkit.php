@@ -12,6 +12,8 @@
  * Plugin URI:        https://github.com/codeboxrcodehub/cbxcareertoolkit/
  * Description:       Making Test Case For Development!
  * Version:           1.0.0
+ * Requires at least: 3.7
+ * Requires PHP:      7.4
  * Author:            Codeboxr
  * Author URI:        https://codeboxr.com
  * License:           GPL-2.0+
