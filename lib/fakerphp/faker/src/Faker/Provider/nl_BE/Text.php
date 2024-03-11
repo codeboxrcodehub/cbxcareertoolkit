@@ -2,33 +2,32 @@
 
 namespace Faker\Provider\nl_BE;
 
-class Text extends \Faker\Provider\Text
-{
-    /**
-     * The Project Gutenberg EBook of De legende en de heldhaftige, vroolijke en
-     * roemrijke daden van Uilenspiegel en Lamme Goedzak in Vlaanderenland en elders, by Charles de Coster
-     *
-     * This eBook is for the use of anyone anywhere at no cost and with
-     * almost no restrictions whatsoever.  You may copy it, give it away or
-     * re-use it under the terms of the Project Gutenberg License included
-     * with this eBook or online at www.gutenberg.org/license
-     *
-     *
-     * Title: De legende en de heldhaftige, vroolijke en roemrijke daden
-     * van Uilenspiegel en Lamme Goedzak in Vlaanderenland en elders
-     *
-     * Author: Charles de Coster
-     *
-     * Release Date: July 3, 2005 [EBook #11208]
-     * [Last updated: March 14, 2015]
-     *
-     * Language: Dutch
-     *
-     * @see http://www.gutenberg.org/cache/epub/11208/pg11208.txt
-     *
-     * @var string
-     */
-    protected static $baseText = <<<'EOT'
+class Text extends \Faker\Provider\Text {
+	/**
+	 * The Project Gutenberg EBook of De legende en de heldhaftige, vroolijke en
+	 * roemrijke daden van Uilenspiegel en Lamme Goedzak in Vlaanderenland en elders, by Charles de Coster
+	 *
+	 * This eBook is for the use of anyone anywhere at no cost and with
+	 * almost no restrictions whatsoever.  You may copy it, give it away or
+	 * re-use it under the terms of the Project Gutenberg License included
+	 * with this eBook or online at www.gutenberg.org/license
+	 *
+	 *
+	 * Title: De legende en de heldhaftige, vroolijke en roemrijke daden
+	 * van Uilenspiegel en Lamme Goedzak in Vlaanderenland en elders
+	 *
+	 * Author: Charles de Coster
+	 *
+	 * Release Date: July 3, 2005 [EBook #11208]
+	 * [Last updated: March 14, 2015]
+	 *
+	 * Language: Dutch
+	 *
+	 * @see http://www.gutenberg.org/cache/epub/11208/pg11208.txt
+	 *
+	 * @var string
+	 */
+	protected static $baseText = <<<'EOT'
   De legende en de heldhaftige,
                     vroolijke en roemrijke daden van
                      Uilenspiegel en Lamme Goedzak

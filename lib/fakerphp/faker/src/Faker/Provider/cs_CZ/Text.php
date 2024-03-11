@@ -2,38 +2,36 @@
 
 namespace Faker\Provider\cs_CZ;
 
-class Text extends \Faker\Provider\Text
-{
-    public function realText($maxNbChars = 200, $indexSize = 2)
-    {
-        $text = parent::realText($maxNbChars, $indexSize);
-        $text = str_replace('„', '', $text);
+class Text extends \Faker\Provider\Text {
+	public function realText( $maxNbChars = 200, $indexSize = 2 ) {
+		$text = parent::realText( $maxNbChars, $indexSize );
+		$text = str_replace( '„', '', $text );
 
-        return str_replace('“', '', $text);
-    }
+		return str_replace( '“', '', $text );
+	}
 
-    /**
-     * License: PD old 70
-     *
-     * Title: Krakatit
-     * Author: Karel Čapek
-     * Release Date: 25. 12. 1923 – 15. 4. 1924
-     * Language: Czech
-     *
-     * @see https://cs.wikisource.org/wiki/Krakatit
-     *
-     * @var string
-     *
-     * Karel Čapek
-     * KRAKATIT
-     * Znění tohoto textu vychází z díla Krakatit tak, jak bylo vydáno v Československém spisovateli v roce 1982
-     * (ČAPEK, Karel. Továrna na absolutno ; Krakatit. 12. vyd. Továrny na absolutno, 16. vyd. Krakatitu. Praha :
-     * Československý spisovatel, 1982. 476 s. Spisy, sv. 3.).
-     * Další díla Karla Čapka naleznete online na www stránkách Městské knihovny v Praze: www.mlp.cz/karelcapek.
-     * Elektronické publikování díla Karla Čapka je společným projektem Městské knihovny v Praze,
-     * Společnosti bratří Čapků, Památníku Karla Čapka a Českého národního korpusu.
-     */
-    protected static $baseText = <<<'EOT'
+	/**
+	 * License: PD old 70
+	 *
+	 * Title: Krakatit
+	 * Author: Karel Čapek
+	 * Release Date: 25. 12. 1923 – 15. 4. 1924
+	 * Language: Czech
+	 *
+	 * @see https://cs.wikisource.org/wiki/Krakatit
+	 *
+	 * @var string
+	 *
+	 * Karel Čapek
+	 * KRAKATIT
+	 * Znění tohoto textu vychází z díla Krakatit tak, jak bylo vydáno v Československém spisovateli v roce 1982
+	 * (ČAPEK, Karel. Továrna na absolutno ; Krakatit. 12. vyd. Továrny na absolutno, 16. vyd. Krakatitu. Praha :
+	 * Československý spisovatel, 1982. 476 s. Spisy, sv. 3.).
+	 * Další díla Karla Čapka naleznete online na www stránkách Městské knihovny v Praze: www.mlp.cz/karelcapek.
+	 * Elektronické publikování díla Karla Čapka je společným projektem Městské knihovny v Praze,
+	 * Společnosti bratří Čapků, Památníku Karla Čapka a Českého národního korpusu.
+	 */
+	protected static $baseText = <<<'EOT'
 I.
 S večerem zhoustla mlha sychravého dne. Je ti, jako by ses protlačoval řídkou
 vlhkou hmotou, jež se za tebou neodvratně zavírá. Chtěl bys být doma. Doma, u

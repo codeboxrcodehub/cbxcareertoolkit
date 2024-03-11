@@ -2,8 +2,7 @@
 
 namespace Cbx\Careertoolkit;
 
-class CBXCareertoolkit
-{
+class CBXCareertoolkit {
 
 	/**
 	 * The single instance of the class.
@@ -38,11 +37,10 @@ class CBXCareertoolkit
 	 */
 	protected $hooks;
 
-	public function __construct()
-	{
+	public function __construct() {
 		$this->plugin_name = CBXCAREER_TOOLKIT_PLUGIN_NAME;
-		$this->version = CBXCAREER_TOOLKIT_PLUGIN_VERSION;
-		$this->hooks = new Hooks();
+		$this->version     = CBXCAREER_TOOLKIT_PLUGIN_VERSION;
+		$this->hooks       = new Hooks();
 	}
 
 	/**
@@ -54,21 +52,18 @@ class CBXCareertoolkit
 	 * @since  1.0.0
 	 * @static
 	 */
-	public static function instance()
-	{
-		if (is_null(self::$instance)) {
+	public static function instance() {
+		if ( is_null( self::$instance ) ) {
 			self::$instance = new self();
 		}
 
 		return self::$instance;
 	}
 
-	public static function activate()
-	{
+	public static function activate() {
 	}//end method activate
 
-	public static function deactivate()
-	{
+	public static function deactivate() {
 	}//end method activate
 
-}
+}//end method CBXCareertoolkit
