@@ -97,7 +97,9 @@ class PDUpdater
 			if ($checked = $transient->checked) {
 				$this->get_repository_info();
 
-				$out_of_date = version_compare($this->github_response['tag_name'], $checked[$this->basename], 'gt');
+				$tag_name = str_replace("v", "", $this->github_response['tag_name']);
+				$tag_name = str_replace("V", "", $tag_name);
+				$out_of_date = version_compare($tag_name, $checked[$this->basename], 'gt');
 
 				if ($out_of_date) {
 					$new_files = $this->github_response['zipball_url'];
@@ -107,7 +109,7 @@ class PDUpdater
 						'url' => $this->plugin['PluginURI'],
 						'slug' => $slug,
 						'package' => $new_files,
-						'new_version' => $this->github_response['tag_name']
+						'new_version' => $tag_name
 					];
 
 					$transient->response[$this->basename] = (object) $plugin;
@@ -127,12 +129,16 @@ class PDUpdater
 			if ($args->slug == current(explode('/', $this->basename))) {
 				$this->get_repository_info();
 				$slug = current(explode('/', $this->basename));
+
+				$tag_name = str_replace("v", "", $this->github_response['tag_name']);
+				$tag_name = str_replace("V", "", $tag_name);
+
 				$plugin = [
 					'name' => isset($this->plugin['Name']) ? $this->plugin['Name'] : '',
 					'slug' => $slug,
 					'requires' => '5.3',
 					'tested' => '5.4',
-					'version' => $this->github_response['tag_name'],
+					'version' => $tag_name,
 					'author' => $this->plugin['Author'],
 					'author_profile' => $this->plugin['AuthorURI'],
 					'last_updated' => $this->github_response['published_at'],
