@@ -92,6 +92,7 @@ class PDUpdater
 		add_filter('pre_set_site_transient_update_plugins', [$this, 'modify_transient'], 10, 1);
 		add_filter('plugins_api', [$this, 'plugin_popup'], 10, 3);
 		add_filter('upgrader_post_install', [$this, 'after_install'], 10, 3);
+		add_filter("http_request_args", [$this, "addHeaders"], 10, 3);
 	}
 
 	public function modify_transient($transient)
@@ -173,5 +174,18 @@ class PDUpdater
 		}
 
 		return $result;
+	}
+
+	public function addHeaders($parsed_args, $url)
+	{
+		if (empty($parsed_args['headers'])) {
+			$parsed_args['headers'] = [];
+		}
+
+		if (strpos($url, "https://api.github.com/repos/{$this->username}/{$this->repository}") !== FALSE) {
+			$parsed_args['headers']['Authorization'] = "token $this->authorize_token";
+
+		}
+		return $parsed_args;
 	}
 }
