@@ -99,10 +99,9 @@ class PDUpdater
 		if (property_exists($transient, 'checked')) {
 			if ($checked = $transient->checked) {
 				$this->get_repository_info();
-				write_log(str_replace("v", "", $this->github_response['tag_name']));
-				write_log($checked[$this->basename]);
-				$out_of_date = version_compare(str_replace("v", "", $this->github_response['tag_name']), $checked[$this->basename], 'gt');
-				write_log($out_of_date);
+
+				$out_of_date = version_compare($this->github_response['tag_name'], $checked[$this->basename], 'gt');
+
 				if ($out_of_date) {
 					$new_files = $this->github_response['zipball_url'];
 					$slug = current(explode('/', $this->basename));
