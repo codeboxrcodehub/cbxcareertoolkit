@@ -66,7 +66,7 @@ class PDUpdater
 			]);
 
 			$response = curl_exec($curl);
-
+			//write_log($response);
 			// print_r($response);
 			// exit;
 
@@ -112,6 +112,8 @@ class PDUpdater
 						'package' => $new_files,
 						'new_version' => $this->github_response['tag_name']
 					];
+					write_log($plugin);
+					write_log($this->plugin);
 
 					$transient->response[$this->basename] = (object) $plugin;
 				}
@@ -123,31 +125,33 @@ class PDUpdater
 
 	public function plugin_popup($result, $action, $args)
 	{
+		write_log("called");
 		if ($action !== 'plugin_information') {
 			return false;
 		}
-
 		if (!empty($args->slug)) {
 			if ($args->slug == current(explode('/', $this->basename))) {
 				$this->get_repository_info();
-
+				$slug = current(explode('/', $this->basename));
 				$plugin = [
-					'name' => $this->plugin['Name'],
-					'slug' => $this->basename,
+					'name' => isset($this->plugin['Name']) ? $this->plugin['Name'] : '',
+					'slug' => $slug,
 					'requires' => '5.3',
 					'tested' => '5.4',
 					'version' => $this->github_response['tag_name'],
-					'author' => $this->plugin['AuthorName'],
+					'author' => $this->plugin['Author'],
 					'author_profile' => $this->plugin['AuthorURI'],
 					'last_updated' => $this->github_response['published_at'],
 					'homepage' => $this->plugin['PluginURI'],
-					'short_description' => $this->plugin['Description'],
+					'short_description' => isset($this->plugin['Description']) ? $this->plugin['Description'] : '',
 					'sections' => [
-						'Description' => $this->plugin['Description'],
-						'Updates' => $this->github_response['body'],
+						'Description' => isset($this->plugin['Description']) ? $this->plugin['Description'] : '',
+						'Updates' => isset($this->github_response['body']) ? $this->github_response['body'] : '',
 					],
 					'download_link' => $this->github_response['zipball_url']
 				];
+
+				write_log($plugin);
 
 				return (object) $plugin;
 			}

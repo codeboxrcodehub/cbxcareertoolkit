@@ -9,9 +9,9 @@
  *
  * @wordpress-plugin
  * Plugin Name:       CBX career Toolkit
- * Plugin URI:        https://codeboxr.com/product/cbxjob-proaddon-for-wordpress/
+ * Plugin URI:        https://github.com/codeboxrcodehub/cbxcareertoolkit/
  * Description:       Making Test Case For Development!
- * Version:           v1.0.0
+ * Version:           1.0.0
  * Author:            Codeboxr
  * Author URI:        https://codeboxr.com
  * License:           GPL-2.0+
