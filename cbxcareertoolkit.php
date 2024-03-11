@@ -16,7 +16,7 @@
  * Author URI:        https://codeboxr.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       cbxdevtoolkit
+ * Text Domain:       cbxcareertoolkit
  * Domain Path:       /languages
  */
 
@@ -25,7 +25,7 @@ if (!defined('WPINC')) {
 	die;
 }
 
-defined('CBXCAREER_TOOLKIT_PLUGIN_NAME') or define('CBXCAREER_TOOLKIT_PLUGIN_NAME', 'cbxdevtoolkit');
+defined('CBXCAREER_TOOLKIT_PLUGIN_NAME') or define('CBXCAREER_TOOLKIT_PLUGIN_NAME', 'cbxcareertoolkit');
 defined('CBXCAREER_TOOLKIT_PLUGIN_VERSION') or define('CBXCAREER_TOOLKIT_PLUGIN_VERSION', '1.0.0');
 defined('CBXCAREER_TOOLKIT_BASE_NAME') or define('CBXCAREER_TOOLKIT_BASE_NAME', plugin_basename(__FILE__));
 defined('CBXCAREER_TOOLKIT_ROOT_PATH') or define('CBXCAREER_TOOLKIT_ROOT_PATH', plugin_dir_path(__FILE__));
@@ -46,12 +46,12 @@ function activate_cbx_career_toolkit()
 {
 	//	if ( ! cbxcareer_toolkit_compatible_wp_version() ) {
 //		deactivate_plugins( plugin_basename( __FILE__ ) );
-//		wp_die( __( 'CBX Dev toolkit plugin requires WordPress 3.5 or higher!', 'cbxdevtoolkit' ) );
+//		wp_die( __( 'CBX Dev toolkit plugin requires WordPress 3.5 or higher!', 'cbxcareertoolkit' ) );
 //	}
 //
 //	if ( ! cbxcareer_toolkit_compatible_php_version() ) {
 //		deactivate_plugins( plugin_basename( __FILE__ ) );
-//		wp_die( __( 'CBX Dev toolkit plugin requires PHP 7.4 or higher!', 'cbxdevtoolkit' ) );
+//		wp_die( __( 'CBX Dev toolkit plugin requires PHP 7.4 or higher!', 'cbxcareertoolkit' ) );
 //	}
 
 	\Cbx\Careertoolkit\CBXCareertoolkit::activate();
