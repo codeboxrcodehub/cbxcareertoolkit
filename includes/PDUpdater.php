@@ -18,29 +18,29 @@ class PDUpdater
 		add_action('admin_init', [$this, 'set_plugin_properties']);
 
 		return $this;
-	}
+	}//end function __construct
 
 	public function set_plugin_properties()
 	{
 		$this->plugin = get_plugin_data($this->file);
 		$this->basename = plugin_basename($this->file);
 		$this->active = is_plugin_active($this->basename);
-	}
+	}//end function set_plugin_properties
 
 	public function set_username($username)
 	{
 		$this->username = $username;
-	}
+	}//end function set_username
 
 	public function set_repository($repository)
 	{
 		$this->repository = $repository;
-	}
+	}//end function set_repository
 
 	public function authorize($token)
 	{
 		$this->authorize_token = $token;
-	}
+	}//end function authorize
 
 	private function get_repository_info()
 	{
@@ -66,9 +66,6 @@ class PDUpdater
 			]);
 
 			$response = curl_exec($curl);
-			//write_log($response);
-			// print_r($response);
-			// exit;
 
 			curl_close($curl);
 
@@ -84,16 +81,15 @@ class PDUpdater
 
 			$this->github_response = $response;
 		}
-	}
+	}//end function get_repository_info
 
 	public function initialize()
 	{
-
 		add_filter('pre_set_site_transient_update_plugins', [$this, 'modify_transient'], 10, 1);
 		add_filter('plugins_api', [$this, 'plugin_popup'], 10, 3);
 		add_filter('upgrader_post_install', [$this, 'after_install'], 10, 3);
 		add_filter("http_request_args", [$this, "addHeaders"], 10, 3);
-	}
+	}//end function initialize
 
 	public function modify_transient($transient)
 	{
@@ -113,8 +109,6 @@ class PDUpdater
 						'package' => $new_files,
 						'new_version' => $this->github_response['tag_name']
 					];
-					write_log($plugin);
-					write_log($this->plugin);
 
 					$transient->response[$this->basename] = (object) $plugin;
 				}
@@ -122,11 +116,10 @@ class PDUpdater
 		}
 
 		return $transient;
-	}
+	}//end function modify_transient
 
 	public function plugin_popup($result, $action, $args)
 	{
-		write_log("called");
 		if ($action !== 'plugin_information') {
 			return false;
 		}
@@ -152,14 +145,12 @@ class PDUpdater
 					'download_link' => $this->github_response['zipball_url']
 				];
 
-				write_log($plugin);
-
 				return (object) $plugin;
 			}
 		}
 
 		return $result;
-	}
+	}//end function plugin_popup
 
 	public function after_install($response, $hook_extra, $result)
 	{
@@ -174,7 +165,7 @@ class PDUpdater
 		}
 
 		return $result;
-	}
+	}//end function after_install
 
 	public function addHeaders($parsed_args, $url)
 	{
@@ -187,5 +178,5 @@ class PDUpdater
 
 		}
 		return $parsed_args;
-	}
-}
+	}//end function addHeaders
+}// end class PDUpdater
