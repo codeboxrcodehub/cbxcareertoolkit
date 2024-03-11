@@ -22,6 +22,8 @@ currency=[USD,BDT, etc]
 salary-unit =[yearly,monthly,yearly,daily]
 
 user-id = user ID
+
+
 cbxresume
 
 wp cbxjresume-generate --total=100 --user-id=1 --status=1 --privacy=public --is-primary=1
