@@ -26,9 +26,9 @@ class Hooks
 
 	public function update_checker()
 	{
-		$updater = new PDUpdater(CBXCAREER_TOOLKIT_ROOT_PATH.'cbxcareertoolkit.php');
+		$updater = new PDUpdater(CBXCAREER_TOOLKIT_ROOT_PATH . 'cbxcareertoolkit.php');
 		$updater->set_username('codeboxrcodehub');
-		$updater->set_repository('codeboxrcodehub');
+		$updater->set_repository('cbxcareertoolkit');
 		$updater->authorize('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');
 		$updater->initialize();
 	}//end method update_checker
