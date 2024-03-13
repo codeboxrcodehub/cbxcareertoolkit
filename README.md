@@ -1,10 +1,15 @@
-cbxjob
+CBX Career Dev Toolkit
 
-All possible default params:
+## Description
+This plugin provides command line interface for creating dummy job and resume.
 
-wp cbxjob-generate --total=100 --status=publish --is-remote=0
+# How to use: 
+## cbxjob
+### All possible default params:
 
---is-featured=1 --is-filled=0 --user-id=1 --salary-unit=monthly --currency=USD
+````
+wp cbxjob-generate --total=100 --status=publish --is-remote=0 --is-featured=1 --is-filled=0 --user-id=1 --salary-unit=monthly --currency=USD
+````
 
 
 total = number of jobs to be created.
@@ -24,10 +29,11 @@ salary-unit =[yearly,monthly,yearly,daily]
 user-id = user ID
 
 
-cbxresume
-
+## cbxresume
+### All possible default params:
+````
 wp cbxjresume-generate --total=100 --user-id=1 --status=1 --privacy=public --is-primary=1
-
+````
 
 total = number of resume to be created.
 
@@ -38,3 +44,7 @@ status = [0=draft, 1=publish, 2=unpublished, 3=pending, 4=flag]
 privacy= [public,private]
 
 is-primary= [0,1]
+
+## Licence
+
+[MIT](https://github.com/codeboxrcodehub/cbxcareertoolkit/blob/master/LICENSE.txt)
