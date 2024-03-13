@@ -1,4 +1,5 @@
 <?php
+
 namespace Cbx\Careertoolkit;
 
 class PDUpdater
@@ -75,11 +76,10 @@ class PDUpdater
 				$response = current($response);
 			}
 
-			if ($this->authorize_token) {
+			if ($this->authorize_token && isset($response['zipball_url'])) {
 				$response['zipball_url'] = add_query_arg('access_token', $this->authorize_token, $response['zipball_url']);
+				$this->github_response = $response;
 			}
-
-			$this->github_response = $response;
 		}
 	}//end function get_repository_info
 
@@ -96,24 +96,26 @@ class PDUpdater
 		if (property_exists($transient, 'checked')) {
 			if ($checked = $transient->checked) {
 				$this->get_repository_info();
+				if (isset($this->github_response['tag_name'])) {
+					$tag_name = str_replace("v", "", $this->github_response['tag_name']);
+					$tag_name = str_replace("V", "", $tag_name);
+					$out_of_date = version_compare($tag_name, $checked[$this->basename], 'gt');
 
-				$tag_name = str_replace("v", "", $this->github_response['tag_name']);
-				$tag_name = str_replace("V", "", $tag_name);
-				$out_of_date = version_compare($tag_name, $checked[$this->basename], 'gt');
+					if ($out_of_date) {
+						$new_files = $this->github_response['zipball_url'];
+						$slug = current(explode('/', $this->basename));
 
-				if ($out_of_date) {
-					$new_files = $this->github_response['zipball_url'];
-					$slug = current(explode('/', $this->basename));
+						$plugin = [
+							'url' => $this->plugin['PluginURI'],
+							'slug' => $slug,
+							'package' => $new_files,
+							'new_version' => $tag_name
+						];
 
-					$plugin = [
-						'url' => $this->plugin['PluginURI'],
-						'slug' => $slug,
-						'package' => $new_files,
-						'new_version' => $tag_name
-					];
-
-					$transient->response[$this->basename] = (object) $plugin;
+						$transient->response[$this->basename] = (object) $plugin;
+					}
 				}
+
 			}
 		}
 
@@ -125,39 +127,53 @@ class PDUpdater
 		if ($action !== 'plugin_information') {
 			return false;
 		}
+
 		if (!empty($args->slug)) {
 			if ($args->slug == current(explode('/', $this->basename))) {
 				$this->get_repository_info();
-				$slug = current(explode('/', $this->basename));
 
-				$tag_name = str_replace("v", "", $this->github_response['tag_name']);
-				$tag_name = str_replace("V", "", $tag_name);
+				if (isset($this->github_response['zipball_url'])) {
+					$slug = current(explode('/', $this->basename));
 
-				$plugin = [
-					'name' => isset($this->plugin['Name']) ? $this->plugin['Name'] : '',
-					'slug' => $slug,
-					'requires' => '5.3',
-					'tested' => '5.4',
-					'version' => $tag_name,
-					'author' => $this->plugin['Author'],
-					'author_profile' => $this->plugin['AuthorURI'],
-					'last_updated' => $this->github_response['published_at'],
-					'homepage' => $this->plugin['PluginURI'],
-					'short_description' => isset($this->plugin['Description']) ? $this->plugin['Description'] : '',
-					'sections' => [
-						'Description' => isset($this->plugin['Description']) ? $this->plugin['Description'] : '',
-						'Updates' => isset($this->github_response['body']) ? $this->github_response['body'] : '',
-					],
-					'download_link' => $this->github_response['zipball_url']
-				];
+					$tag_name = str_replace("v", "", $this->github_response['tag_name']);
+					$tag_name = str_replace("V", "", $tag_name);
 
-				return (object) $plugin;
+					$plugin = [
+						'name' => isset($this->plugin['Name']) ? $this->plugin['Name'] : '',
+						'slug' => $slug,
+						'requires' => '5.3',
+						'tested' => '5.4',
+						'version' => $tag_name,
+						'author' => $this->plugin['Author'],
+						'author_profile' => $this->plugin['AuthorURI'],
+						'last_updated' => $this->github_response['published_at'],
+						'homepage' => $this->plugin['PluginURI'],
+						'short_description' => isset($this->plugin['Description']) ? $this->plugin['Description'] : '',
+						'sections' => [
+							'Description' => isset($this->plugin['Description']) ? $this->plugin['Description'] : '',
+							'Updates' => isset($this->github_response['body']) ? $this->github_response['body'] : '',
+						],
+						'download_link' => $this->github_response['zipball_url']
+					];
+
+					return (object) $plugin;
+				}
+
 			}
 		}
 
 		return $result;
 	}//end function plugin_popup
 
+	/**
+	 * Take care on after plugin install
+	 *
+	 * @param $response
+	 * @param $hook_extra
+	 * @param $result
+	 *
+	 * @return mixed
+	 */
 	public function after_install($response, $hook_extra, $result)
 	{
 		global $wp_filesystem;
@@ -173,16 +189,25 @@ class PDUpdater
 		return $result;
 	}//end function after_install
 
+	/**
+	 * Add github authorization token for plugin download from github
+	 *
+	 * @param $parsed_args
+	 * @param $url
+	 *
+	 * @return mixed
+	 */
 	public function addHeaders($parsed_args, $url)
 	{
 		if (empty($parsed_args['headers'])) {
 			$parsed_args['headers'] = [];
 		}
 
-		if (strpos($url, "https://api.github.com/repos/{$this->username}/{$this->repository}") !== FALSE) {
+		if (strpos($url, "https://api.github.com/repos/{$this->username}/{$this->repository}") !== false) {
 			$parsed_args['headers']['Authorization'] = "token $this->authorize_token";
 
 		}
+
 		return $parsed_args;
 	}//end function addHeaders
-}// end class PDUpdater
+}//end class PDUpdater

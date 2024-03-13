@@ -1,6 +1,6 @@
 {
   "name": "cbx/career-toolkit",
-  "description": "cbx career toolkit for development test plugin",
+  "description": "Helper plugin for CBX Career plugins",
   "type": "library",
   "license": "MIT",
   "config": {
