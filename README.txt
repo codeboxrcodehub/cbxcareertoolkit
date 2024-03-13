@@ -1,10 +1,10 @@
-=== CBX Taxonomy Library ===
+=== CBX Career Toolkit Library ===
 Contributors: codeboxr, manchumahara
 Requires at least: 3.5
 Tested up to: 6.4.3
-Stable tag: 1.0.5
+Stable tag: 1.0.0
 License: MIT
-License URI: https://github.com/codeboxrcodehub/cbxphpspreadsheet/blob/master/LICENSE.txt
+License URI: https://github.com/codeboxrcodehub/cbxcareertoolkit/blob/master/LICENSE.txt
 
 Open source PhpSpreadSheet php library released as wordpress plugin to use easily
 
@@ -44,7 +44,7 @@ if ( defined('CBXPHPSPREADSHEET_PLUGIN_NAME') && file_exists( CBXPHPSPREADSHEET_
 
 == Installation ==
 
-1. Download the latest zip from here (https://github.com/codeboxrcodehub/cbxphpspreadsheet/releases)
+1. Download the latest zip from here (https://github.com/codeboxrcodehub/cbxcareertoolkit/releases)
 2. [WordPress has clear documentation about how to install a plugin].(https://codex.wordpress.org/Managing_Plugins)
 3. After install activate the plugin "CBX PhpSpreadSheet Library" through the 'Plugins' menu in WordPress
 4. This plugin doesn't load any library by default, it doesn't create extra folder or menu.
