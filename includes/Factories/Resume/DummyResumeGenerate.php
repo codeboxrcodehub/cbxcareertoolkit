@@ -33,7 +33,7 @@ class DummyResumeGenerate extends Factory {
 
 		$total     = isset( $assoc_args['total'] ) && intval( $assoc_args['total'] ) ? intval( $assoc_args['total'] ) : 100;
 		$user_id   = isset( $assoc_args['user-id'] ) && intval( $assoc_args['user-id'] ) ? intval( $assoc_args['user-id'] ) : 1;
-		$status    = isset( $assoc_args['status'] ) && intval( $assoc_args['status'] ) ? intval( $assoc_args['status'] ) : 1;
+		$status    = isset( $assoc_args['status'] ) && intval( $assoc_args['status'] ) ? intval( $assoc_args['status'] ) : 'published';
 		$privacy   = isset( $assoc_args['privacy'] ) && strval( $assoc_args['privacy'] ) ? strval( $assoc_args['privacy'] ) : "public";
 		$isPrimary = isset( $assoc_args['is-primary'] ) && intval( $assoc_args['is-primary'] ) ? intval( $assoc_args['is-primary'] ) : 1;
 
