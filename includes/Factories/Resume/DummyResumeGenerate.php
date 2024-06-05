@@ -40,7 +40,7 @@ class DummyResumeGenerate extends Factory {
 		for ( $i = 0; $i < $total; $i ++ ) {
 			$formData = [
 				'add_by'     => 1,
-				'user_id'    => $user_id,
+				'owner'    => $user_id,
 				'privacy'    => $privacy,
 				'status'     => $status,
 				'resume'     => json_encode( [
