@@ -4,6 +4,7 @@ namespace Cbx\Careertoolkit\Factories\Resume;
 
 use Cbx\Careertoolkit\Factories\Factory;
 use Faker\Factory as FakerFactory;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Dummy resume data generate command
@@ -31,16 +32,16 @@ class DummyResumeGenerate extends Factory {
 	public function run( $args, $assoc_args ) {
 		$start = microtime( true );
 
-		$total     = isset( $assoc_args['total'] ) && intval( $assoc_args['total'] ) ? intval( $assoc_args['total'] ) : 100;
+		$total     = isset( $assoc_args['total'] ) && intval( $assoc_args['total'] ) ? intval( $assoc_args['total'] ) : 20;
 		$user_id   = isset( $assoc_args['user-id'] ) && intval( $assoc_args['user-id'] ) ? intval( $assoc_args['user-id'] ) : 1;
 		$status    = isset( $assoc_args['status'] ) && intval( $assoc_args['status'] ) ? intval( $assoc_args['status'] ) : 'published';
-		$privacy   = isset( $assoc_args['privacy'] ) && strval( $assoc_args['privacy'] ) ? strval( $assoc_args['privacy'] ) : "public";
+		$privacy   = isset( $assoc_args['privacy'] ) && strval( $assoc_args['privacy'] ) ? strval( $assoc_args['privacy'] ) : 'public';
 		$isPrimary = isset( $assoc_args['is-primary'] ) && intval( $assoc_args['is-primary'] ) ? intval( $assoc_args['is-primary'] ) : 1;
 
 		for ( $i = 0; $i < $total; $i ++ ) {
 			$formData = [
 				'add_by'     => 1,
-				'user_id'    => $user_id,
+				'owner'      => $user_id,
 				'privacy'    => $privacy,
 				'status'     => $status,
 				'resume'     => json_encode( [
@@ -64,6 +65,8 @@ class DummyResumeGenerate extends Factory {
 				'add_date'   => date( 'Y-m-d H:i:s' )
 			];
 
+			$formData['uuid'] = Uuid::uuid4();
+
 			\Cbx\Resume\Models\Resume::query()->create( $formData );
 		}
 
@@ -72,7 +75,7 @@ class DummyResumeGenerate extends Factory {
 		$elapsed = $end - $start;
 
 
-		\WP_CLI::success( "Successfully $total dummy resume added. Execution time $elapsed seconds" );
+		\WP_CLI::success( "Successfully $total dummy resume added. Execution time $elapsed seconds" );//todo: translation missing
 
 	} //end method run
 

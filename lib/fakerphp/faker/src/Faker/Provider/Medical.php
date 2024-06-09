@@ -2,29 +2,33 @@
 
 namespace Faker\Provider;
 
-class Medical extends Base {
-	protected static $bloodTypes = [ 'A', 'AB', 'B', 'O' ];
+class Medical extends Base
+{
+    protected static $bloodTypes = ['A', 'AB', 'B', 'O'];
 
-	protected static $bloodRhFactors = [ '+', '-' ];
+    protected static $bloodRhFactors = ['+', '-'];
 
-	/**
-	 * @example 'AB'
-	 */
-	public static function bloodType(): string {
-		return static::randomElement( static::$bloodTypes );
-	}
+    /**
+     * @example 'AB'
+     */
+    public static function bloodType(): string
+    {
+        return static::randomElement(static::$bloodTypes);
+    }
 
-	/**
-	 * @example '+'
-	 */
-	public static function bloodRh(): string {
-		return static::randomElement( static::$bloodRhFactors );
-	}
+    /**
+     * @example '+'
+     */
+    public static function bloodRh(): string
+    {
+        return static::randomElement(static::$bloodRhFactors);
+    }
 
-	/**
-	 * @example 'AB+'
-	 */
-	public function bloodGroup(): string {
-		return $this->generator->parse( '{{bloodType}}{{bloodRh}}' );
-	}
+    /**
+     * @example 'AB+'
+     */
+    public function bloodGroup(): string
+    {
+        return $this->generator->parse('{{bloodType}}{{bloodRh}}');
+    }
 }

@@ -31,7 +31,7 @@ class DummyJobGenerate extends Factory {
 	public function run( $args, $assoc_args ) {
 		$start = microtime( true );
 
-		$total       = isset( $assoc_args['total'] ) && intval( $assoc_args['total'] ) ? intval( $assoc_args['total'] ) : 100;
+		$total       = isset( $assoc_args['total'] ) && intval( $assoc_args['total'] ) ? intval( $assoc_args['total'] ) : 20;
 		$status      = isset( $assoc_args['status'] ) ? sanitize_text_field( $assoc_args['status'] ) : 'publish';
 		$is_remote   = isset( $assoc_args['is-remote'] ) && intval( $assoc_args['is-remote'] ) ? intval( $assoc_args['is-remote'] ) : 0;
 		$is_featured = isset( $assoc_args['is-featured'] ) && intval( $assoc_args['is-featured'] ) ? intval( $assoc_args['is-featured'] ) : 1;
@@ -75,9 +75,7 @@ class DummyJobGenerate extends Factory {
 
 			//$cbxjob['mod_by'] = $job->post_author;
 			$cbxjob['mod_date'] = date( 'Y-m-d H:i:s' );
-
 			$cbxjob['closing_date'] = date( 'Y-m-d H:i:s', strtotime( '+7 days' ) );
-
 			$cbxjob['expiry_date'] = date( 'Y-m-d H:i:s', strtotime( '+7 days' ) );
 
 
@@ -87,7 +85,7 @@ class DummyJobGenerate extends Factory {
 
 		$elapsed = $end - $start;
 
-		\WP_CLI::success( "Successfully $total dummy job added. Execution time $elapsed seconds" );
+		\WP_CLI::success( "Successfully $total dummy job added. Execution time $elapsed seconds" );//todo: translation missing
 
 	} //end method run
 } //end class DummyJobGenerate
