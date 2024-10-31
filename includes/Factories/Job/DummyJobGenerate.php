@@ -2,6 +2,7 @@
 
 namespace Cbx\Careertoolkit\Factories\Job;
 
+use Cocur\Slugify\Slugify;
 use Cbx\Careertoolkit\Factories\Factory;
 use Faker\Factory as FakerFactory;
 
@@ -78,6 +79,13 @@ class DummyJobGenerate extends Factory {
 			$cbxjob['closing_date'] = date( 'Y-m-d H:i:s', strtotime( '+7 days' ) );
 			$cbxjob['expiry_date'] = date( 'Y-m-d H:i:s', strtotime( '+7 days' ) );
 
+			$slugify = new Slugify();
+
+			$existing_slugs = \Cbx\Job\Models\CBXJob::query()->pluck( 'slug' )->toArray();
+			$temp_slug      = $slugify->slugify( $cbxjob['title'] );
+			$slug           = \Cbx\Job\Helpers\CBXJobHelpers::generate_unique_slug( $temp_slug, $existing_slugs );
+
+			$cbxjob['slug'] = $slug;
 
 			\Cbx\Job\Models\CBXJob::query()->create( $cbxjob );
 		}

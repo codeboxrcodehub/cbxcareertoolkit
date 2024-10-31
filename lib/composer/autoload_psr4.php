@@ -10,6 +10,7 @@ return array(
     'Ramsey\\Collection\\' => array($vendorDir . '/ramsey/collection/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Faker\\' => array($vendorDir . '/fakerphp/faker/src/Faker'),
+    'Cocur\\Slugify\\' => array($vendorDir . '/cocur/slugify/src'),
     'Cbx\\Careertoolkit\\' => array($baseDir . '/includes'),
     'Brick\\Math\\' => array($vendorDir . '/brick/math/src'),
 );

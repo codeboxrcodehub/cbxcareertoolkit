@@ -8,7 +8,8 @@
   },
   "require": {
     "fakerphp/faker": "^1.23",
-    "ramsey/uuid": "^4.7"
+    "ramsey/uuid": "^4.7",
+    "cocur/slugify": "^4.5"
   },
   "autoload": {
     "psr-4": {

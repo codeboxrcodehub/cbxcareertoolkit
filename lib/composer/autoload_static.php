@@ -27,6 +27,7 @@ class ComposerStaticInit660ce0766d71816ac8264ce30cb08817
         ),
         'C' => 
         array (
+            'Cocur\\Slugify\\' => 14,
             'Cbx\\Careertoolkit\\' => 18,
         ),
         'B' => 
@@ -51,6 +52,10 @@ class ComposerStaticInit660ce0766d71816ac8264ce30cb08817
         'Faker\\' => 
         array (
             0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
+        ),
+        'Cocur\\Slugify\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cocur/slugify/src',
         ),
         'Cbx\\Careertoolkit\\' => 
         array (
