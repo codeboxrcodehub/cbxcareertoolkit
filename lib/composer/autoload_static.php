@@ -4,51 +4,80 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit660ce0766d71816ac8264ce30cb08817 {
-	public static $files = [
-		'6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
-	];
+class ComposerStaticInit660ce0766d71816ac8264ce30cb08817
+{
+    public static $files = array (
+        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
+    );
 
-	public static $prefixLengthsPsr4 = [
-		'P' =>
-			[
-				'Psr\\Container\\' => 14,
-			],
-		'F' =>
-			[
-				'Faker\\' => 6,
-			],
-		'C' =>
-			[
-				'Cbx\\Careertoolkit\\' => 15,
-			],
-	];
+    public static $prefixLengthsPsr4 = array (
+        'R' => 
+        array (
+            'Ramsey\\Uuid\\' => 12,
+            'Ramsey\\Collection\\' => 18,
+        ),
+        'P' => 
+        array (
+            'Psr\\Container\\' => 14,
+        ),
+        'F' => 
+        array (
+            'Faker\\' => 6,
+        ),
+        'C' => 
+        array (
+            'Cocur\\Slugify\\' => 14,
+            'Cbx\\Careertoolkit\\' => 18,
+        ),
+        'B' => 
+        array (
+            'Brick\\Math\\' => 11,
+        ),
+    );
 
-	public static $prefixDirsPsr4 = [
-		'Psr\\Container\\'     =>
-			[
-				0 => __DIR__ . '/..' . '/psr/container/src',
-			],
-		'Faker\\'              =>
-			[
-				0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
-			],
-		'Cbx\\Careertoolkit\\' =>
-			[
-				0 => __DIR__ . '/../..' . '/includes',
-			],
-	];
+    public static $prefixDirsPsr4 = array (
+        'Ramsey\\Uuid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ramsey/uuid/src',
+        ),
+        'Ramsey\\Collection\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ramsey/collection/src',
+        ),
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'Faker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
+        ),
+        'Cocur\\Slugify\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cocur/slugify/src',
+        ),
+        'Cbx\\Careertoolkit\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/includes',
+        ),
+        'Brick\\Math\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/brick/math/src',
+        ),
+    );
 
-	public static $classMap = [
-		'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-	];
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+    );
 
-	public static function getInitializer( ClassLoader $loader ) {
-		return \Closure::bind( function () use ( $loader ) {
-			$loader->prefixLengthsPsr4 = ComposerStaticInit660ce0766d71816ac8264ce30cb08817::$prefixLengthsPsr4;
-			$loader->prefixDirsPsr4    = ComposerStaticInit660ce0766d71816ac8264ce30cb08817::$prefixDirsPsr4;
-			$loader->classMap          = ComposerStaticInit660ce0766d71816ac8264ce30cb08817::$classMap;
+    public static function getInitializer(ClassLoader $loader)
+    {
+        return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit660ce0766d71816ac8264ce30cb08817::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit660ce0766d71816ac8264ce30cb08817::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit660ce0766d71816ac8264ce30cb08817::$classMap;
 
-		}, null, ClassLoader::class );
-	}
+        }, null, ClassLoader::class);
+    }
 }

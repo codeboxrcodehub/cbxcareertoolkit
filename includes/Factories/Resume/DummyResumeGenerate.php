@@ -2,6 +2,7 @@
 
 namespace Cbx\Careertoolkit\Factories\Resume;
 
+use Ramsey\Uuid\Uuid;
 use Cbx\Careertoolkit\Factories\Factory;
 use Faker\Factory as FakerFactory;
 
@@ -40,7 +41,7 @@ class DummyResumeGenerate extends Factory {
 		for ( $i = 0; $i < $total; $i ++ ) {
 			$formData = [
 				'add_by'     => 1,
-				'user_id'    => $user_id,
+				'owner'    => $user_id,
 				'privacy'    => $privacy,
 				'status'     => $status,
 				'resume'     => json_encode( [
@@ -64,6 +65,12 @@ class DummyResumeGenerate extends Factory {
 				'add_date'   => date( 'Y-m-d H:i:s' )
 			];
 
+			
+			$slug = Uuid::uuid4();;
+
+			$formData['slug'] = $slug;
+			$formData['uuid'] = $slug;
+
 			\Cbx\Resume\Models\Resume::query()->create( $formData );
 		}
 
@@ -85,6 +92,7 @@ class DummyResumeGenerate extends Factory {
 	private function aboutMe() {
 		return [
 			"key"   => "aboutme",
+			"type"   => "aboutme",
 			"value" => [
 				(object) [
 					"new"             => true,
@@ -113,7 +121,8 @@ class DummyResumeGenerate extends Factory {
 	 */
 	private function avatar() {
 		return [
-			"key"   => "",
+			"key"   => "avatar",
+			"type"   => "avatar",
 			"value" => [
 				(object) [
 					"pic"     => "",
@@ -133,6 +142,7 @@ class DummyResumeGenerate extends Factory {
 	private function education() {
 		return [
 			"key"   => "education",
+			"type"   => "education",
 			"value" => [
 				(object) [
 					"organization"   => FakerFactory::create()->company(),
@@ -177,6 +187,7 @@ class DummyResumeGenerate extends Factory {
 	private function experience() {
 		return [
 			"key"   => "experience",
+			"type"   => "experience",
 			"value" => [
 				(object) [
 					"title"          => FakerFactory::create()->jobTitle(),
@@ -215,6 +226,7 @@ class DummyResumeGenerate extends Factory {
 	private function skills() {
 		return [
 			"key"   => "skill",
+			"type"   => "skill",
 			"value" => [
 				(object) [
 					"name"  => FakerFactory::create()->name(),
@@ -253,6 +265,7 @@ class DummyResumeGenerate extends Factory {
 	private function course() {
 		return [
 			"key"   => "course",
+			"type"   => "course",
 			"value" => [
 				(object) [
 					"name"                   => FakerFactory::create()->name(),
@@ -287,6 +300,7 @@ class DummyResumeGenerate extends Factory {
 	private function license() {
 		return [
 			"key"   => "license",
+			"type"   => "license",
 			"value" => [
 				(object) [
 					"name"           => FakerFactory::create()->name(),
@@ -317,6 +331,7 @@ class DummyResumeGenerate extends Factory {
 	private function language() {
 		return [
 			"key"   => "language",
+			"type"   => "language",
 			"value" => [
 				(object) [
 					"name"        => "Bangla",
@@ -339,6 +354,7 @@ class DummyResumeGenerate extends Factory {
 	private function website() {
 		return [
 			"key"   => "website",
+			"type"   => "website",
 			"value" => [
 				(object) [
 					"category" => "PERSONAL",
@@ -373,6 +389,7 @@ class DummyResumeGenerate extends Factory {
 	private function project() {
 		return [
 			"key"   => "project",
+			"type"   => "project",
 			"value" => [
 				(object) [
 					"title"          => FakerFactory::create()->name(),
@@ -439,6 +456,7 @@ class DummyResumeGenerate extends Factory {
 	private function honor() {
 		return [
 			"key"   => "honor",
+			"type"   => "honor",
 			"value" => [
 				(object) [
 					'title'       => FakerFactory::create()->title(),
@@ -467,6 +485,7 @@ class DummyResumeGenerate extends Factory {
 	private function publication() {
 		return [
 			"key"   => "publication",
+			"type"   => "publication",
 			"value" => [
 				(object) [
 					"name"        => FakerFactory::create()->name(),
@@ -489,6 +508,7 @@ class DummyResumeGenerate extends Factory {
 	private function patent() {
 		return [
 			"key"   => "patent",
+			"type"   => "patent",
 			"value" => [
 				(object) [
 					"title"             => "Electric Light Bulb",
@@ -514,6 +534,7 @@ class DummyResumeGenerate extends Factory {
 	private function hobby() {
 		return [
 			"key"   => "hobby",
+			"type"   => "hobby",
 			"value" => [
 				(object) [
 					"name" => FakerFactory::create()->name()
@@ -540,6 +561,7 @@ class DummyResumeGenerate extends Factory {
 	private function volunteer() {
 		return [
 			"key"   => "volunteer",
+			"type"   => "volunteer",
 			"value" => [
 				(object) [
 					"companyName"    => FakerFactory::create()->company(),

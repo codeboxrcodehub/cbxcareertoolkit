@@ -8,217 +8,210 @@ use Faker\Extension\GeneratorAwareExtensionTrait;
 use Faker\Extension\Helper;
 
 /**
- * @experimental
+ * @experimental This class is experimental and does not fall under our BC promise
  *
  * @since 1.20.0
  */
-final class DateTime implements DateTimeExtension, GeneratorAwareExtension {
-	use GeneratorAwareExtensionTrait;
+final class DateTime implements DateTimeExtension, GeneratorAwareExtension
+{
+    use GeneratorAwareExtensionTrait;
 
-	/**
-	 * @var string[]
-	 */
-	private $centuries = [
-		'I',
-		'II',
-		'III',
-		'IV',
-		'V',
-		'VI',
-		'VII',
-		'VIII',
-		'IX',
-		'X',
-		'XI',
-		'XII',
-		'XIII',
-		'XIV',
-		'XV',
-		'XVI',
-		'XVII',
-		'XVIII',
-		'XIX',
-		'XX',
-		'XXI'
-	];
+    /**
+     * @var string[]
+     */
+    private array $centuries = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI'];
 
-	/**
-	 * @var string
-	 */
-	private $defaultTimezone = null;
+    private ?string $defaultTimezone = null;
 
-	/**
-	 * Get the POSIX-timestamp of a DateTime, int or string.
-	 *
-	 * @param \DateTime|float|int|string $until
-	 *
-	 * @return false|int
-	 */
-	protected function getTimestamp( $until = 'now' ) {
-		if ( is_numeric( $until ) ) {
-			return (int) $until;
-		}
+    /**
+     * Get the POSIX-timestamp of a DateTime, int or string.
+     *
+     * @param \DateTime|float|int|string $until
+     *
+     * @return false|int
+     */
+    private function getTimestamp($until = 'now')
+    {
+        if (is_numeric($until)) {
+            return (int) $until;
+        }
 
-		if ( $until instanceof \DateTime ) {
-			return $until->getTimestamp();
-		}
+        if ($until instanceof \DateTime) {
+            return $until->getTimestamp();
+        }
 
-		return strtotime( empty( $until ) ? 'now' : $until );
-	}
+        return strtotime(empty($until) ? 'now' : $until);
+    }
 
-	/**
-	 * Get a DateTime created based on a POSIX-timestamp.
-	 *
-	 * @param int $timestamp the UNIX / POSIX-compatible timestamp
-	 */
-	protected function getTimestampDateTime( int $timestamp ): \DateTime {
-		return new \DateTime( '@' . $timestamp );
-	}
+    /**
+     * Get a DateTime created based on a POSIX-timestamp.
+     *
+     * @param int $timestamp the UNIX / POSIX-compatible timestamp
+     */
+    private function getTimestampDateTime(int $timestamp): \DateTime
+    {
+        return new \DateTime('@' . $timestamp);
+    }
 
-	protected function setDefaultTimezone( string $timezone = null ): void {
-		$this->defaultTimezone = $timezone;
-	}
+    private function resolveTimezone(?string $timezone): string
+    {
+        if ($timezone !== null) {
+            return $timezone;
+        }
 
-	protected function getDefaultTimezone(): ?string {
-		return $this->defaultTimezone;
-	}
+        return null === $this->defaultTimezone ? date_default_timezone_get() : $this->defaultTimezone;
+    }
 
-	protected function resolveTimezone( ?string $timezone ): string {
-		if ( $timezone !== null ) {
-			return $timezone;
-		}
+    /**
+     * Internal method to set the timezone on a DateTime object.
+     */
+    private function setTimezone(\DateTime $dateTime, ?string $timezone): \DateTime
+    {
+        $timezone = $this->resolveTimezone($timezone);
 
-		return null === $this->defaultTimezone ? date_default_timezone_get() : $this->defaultTimezone;
-	}
+        return $dateTime->setTimezone(new \DateTimeZone($timezone));
+    }
 
-	/**
-	 * Internal method to set the timezone on a DateTime object.
-	 */
-	protected function setTimezone( \DateTime $dateTime, ?string $timezone ): \DateTime {
-		$timezone = $this->resolveTimezone( $timezone );
+    public function dateTime($until = 'now', string $timezone = null): \DateTime
+    {
+        return $this->setTimezone(
+            $this->getTimestampDateTime($this->unixTime($until)),
+            $timezone,
+        );
+    }
 
-		return $dateTime->setTimezone( new \DateTimeZone( $timezone ) );
-	}
+    public function dateTimeAD($until = 'now', string $timezone = null): \DateTime
+    {
+        $min = (PHP_INT_SIZE > 4) ? -62135597361 : -PHP_INT_MAX;
 
-	public function dateTime( $until = 'now', string $timezone = null ): \DateTime {
-		return $this->setTimezone(
-			$this->getTimestampDateTime( $this->unixTime( $until ) ),
-			$timezone,
-		);
-	}
+        return $this->setTimezone(
+            $this->getTimestampDateTime($this->generator->numberBetween($min, $this->getTimestamp($until))),
+            $timezone,
+        );
+    }
 
-	public function dateTimeAD( $until = 'now', string $timezone = null ): \DateTime {
-		$min = ( PHP_INT_SIZE > 4 ) ? - 62135597361 : - PHP_INT_MAX;
+    public function dateTimeBetween($from = '-30 years', $until = 'now', string $timezone = null): \DateTime
+    {
+        $start = $this->getTimestamp($from);
+        $end = $this->getTimestamp($until);
 
-		return $this->setTimezone(
-			$this->getTimestampDateTime( $this->generator->numberBetween( $min, $this->getTimestamp( $until ) ) ),
-			$timezone,
-		);
-	}
+        if ($start > $end) {
+            throw new \InvalidArgumentException('"$from" must be anterior to "$until".');
+        }
 
-	public function dateTimeBetween( $from = '-30 years', $until = 'now', string $timezone = null ): \DateTime {
-		$start = $this->getTimestamp( $from );
-		$end   = $this->getTimestamp( $until );
+        $timestamp = $this->generator->numberBetween($start, $end);
 
-		if ( $start > $end ) {
-			throw new \InvalidArgumentException( '"$from" must be anterior to "$until".' );
-		}
+        return $this->setTimezone(
+            $this->getTimestampDateTime($timestamp),
+            $timezone,
+        );
+    }
 
-		$timestamp = $this->generator->numberBetween( $start, $end );
+    public function dateTimeInInterval($from = '-30 years', string $interval = '+5 days', string $timezone = null): \DateTime
+    {
+        $intervalObject = \DateInterval::createFromDateString($interval);
+        $datetime = $from instanceof \DateTime ? $from : new \DateTime($from);
 
-		return $this->setTimezone(
-			$this->getTimestampDateTime( $timestamp ),
-			$timezone,
-		);
-	}
+        $other = (clone $datetime)->add($intervalObject);
 
-	public function dateTimeInInterval( $from = '-30 years', string $interval = '+5 days', string $timezone = null ): \DateTime {
-		$intervalObject = \DateInterval::createFromDateString( $interval );
-		$datetime       = $from instanceof \DateTime ? $from : new \DateTime( $from );
+        $begin = min($datetime, $other);
+        $end = $datetime === $begin ? $other : $datetime;
 
-		$other = ( clone $datetime )->add( $intervalObject );
+        return $this->dateTimeBetween($begin, $end, $timezone);
+    }
 
-		$begin = min( $datetime, $other );
-		$end   = $datetime === $begin ? $other : $datetime;
+    public function dateTimeThisWeek($until = 'sunday this week', string $timezone = null): \DateTime
+    {
+        return $this->dateTimeBetween('monday this week', $until, $timezone);
+    }
 
-		return $this->dateTimeBetween( $begin, $end, $timezone );
-	}
+    public function dateTimeThisMonth($until = 'last day of this month', string $timezone = null): \DateTime
+    {
+        return $this->dateTimeBetween('first day of this month', $until, $timezone);
+    }
 
-	public function dateTimeThisWeek( $until = 'sunday this week', string $timezone = null ): \DateTime {
-		return $this->dateTimeBetween( 'monday this week', $until, $timezone );
-	}
+    public function dateTimeThisYear($until = 'last day of december', string $timezone = null): \DateTime
+    {
+        return $this->dateTimeBetween('first day of january', $until, $timezone);
+    }
 
-	public function dateTimeThisMonth( $until = 'last day of this month', string $timezone = null ): \DateTime {
-		return $this->dateTimeBetween( 'first day of this month', $until, $timezone );
-	}
+    public function dateTimeThisDecade($until = 'now', string $timezone = null): \DateTime
+    {
+        $year = floor(date('Y') / 10) * 10;
 
-	public function dateTimeThisYear( $until = 'last day of december', string $timezone = null ): \DateTime {
-		return $this->dateTimeBetween( 'first day of january', $until, $timezone );
-	}
+        return $this->dateTimeBetween("first day of january $year", $until, $timezone);
+    }
 
-	public function dateTimeThisDecade( $until = 'now', string $timezone = null ): \DateTime {
-		$year = floor( date( 'Y' ) / 10 ) * 10;
+    public function dateTimeThisCentury($until = 'now', string $timezone = null): \DateTime
+    {
+        $year = floor(date('Y') / 100) * 100;
 
-		return $this->dateTimeBetween( "first day of january $year", $until, $timezone );
-	}
+        return $this->dateTimeBetween("first day of january $year", $until, $timezone);
+    }
 
-	public function dateTimeThisCentury( $until = 'now', string $timezone = null ): \DateTime {
-		$year = floor( date( 'Y' ) / 100 ) * 100;
+    public function date(string $format = 'Y-m-d', $until = 'now'): string
+    {
+        return $this->dateTime($until)->format($format);
+    }
 
-		return $this->dateTimeBetween( "first day of january $year", $until, $timezone );
-	}
+    public function time(string $format = 'H:i:s', $until = 'now'): string
+    {
+        return $this->date($format, $until);
+    }
 
-	public function date( string $format = 'Y-m-d', $until = 'now' ): string {
-		return $this->dateTime( $until )->format( $format );
-	}
+    public function unixTime($until = 'now'): int
+    {
+        return $this->generator->numberBetween(0, $this->getTimestamp($until));
+    }
 
-	public function time( string $format = 'H:i:s', $until = 'now' ): string {
-		return $this->date( $format, $until );
-	}
+    public function iso8601($until = 'now'): string
+    {
+        return $this->date(\DateTime::ISO8601, $until);
+    }
 
-	public function unixTime( $until = 'now' ): int {
-		return $this->generator->numberBetween( 0, $this->getTimestamp( $until ) );
-	}
+    public function amPm($until = 'now'): string
+    {
+        return $this->date('a', $until);
+    }
 
-	public function iso8601( $until = 'now' ): string {
-		return $this->date( \DateTime::ISO8601, $until );
-	}
+    public function dayOfMonth($until = 'now'): string
+    {
+        return $this->date('d', $until);
+    }
 
-	public function amPm( $until = 'now' ): string {
-		return $this->date( 'a', $until );
-	}
+    public function dayOfWeek($until = 'now'): string
+    {
+        return $this->date('l', $until);
+    }
 
-	public function dayOfMonth( $until = 'now' ): string {
-		return $this->date( 'd', $until );
-	}
+    public function month($until = 'now'): string
+    {
+        return $this->date('m', $until);
+    }
 
-	public function dayOfWeek( $until = 'now' ): string {
-		return $this->date( 'l', $until );
-	}
+    public function monthName($until = 'now'): string
+    {
+        return $this->date('F', $until);
+    }
 
-	public function month( $until = 'now' ): string {
-		return $this->date( 'm', $until );
-	}
+    public function year($until = 'now'): string
+    {
+        return $this->date('Y', $until);
+    }
 
-	public function monthName( $until = 'now' ): string {
-		return $this->date( 'F', $until );
-	}
+    public function century(): string
+    {
+        return Helper::randomElement($this->centuries);
+    }
 
-	public function year( $until = 'now' ): string {
-		return $this->date( 'Y', $until );
-	}
+    public function timezone(string $countryCode = null): string
+    {
+        if ($countryCode) {
+            $timezones = \DateTimeZone::listIdentifiers(\DateTimeZone::PER_COUNTRY, $countryCode);
+        } else {
+            $timezones = \DateTimeZone::listIdentifiers();
+        }
 
-	public function century(): string {
-		return Helper::randomElement( $this->centuries );
-	}
-
-	public function timezone( string $countryCode = null ): string {
-		if ( $countryCode ) {
-			$timezones = \DateTimeZone::listIdentifiers( \DateTimeZone::PER_COUNTRY, $countryCode );
-		} else {
-			$timezones = \DateTimeZone::listIdentifiers();
-		}
-
-		return Helper::randomElement( $timezones );
-	}
+        return Helper::randomElement($timezones);
+    }
 }
