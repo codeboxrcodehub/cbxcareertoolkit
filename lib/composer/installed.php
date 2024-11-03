@@ -3,7 +3,7 @@
         'name' => 'cbx/career-toolkit',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'e181d7b12fdb6f73b08f263e3600f2242ed07186',
+        'reference' => 'f721287d4e90755d7c28fd22760ee82498a29f29',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'cbx/career-toolkit' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'e181d7b12fdb6f73b08f263e3600f2242ed07186',
+            'reference' => 'f721287d4e90755d7c28fd22760ee82498a29f29',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
