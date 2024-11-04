@@ -23,7 +23,7 @@ wp cbxjob-generate --total=100 --status=publish --is-remote=0 --is-featured=1 --
 
 total = number of jobs to be created.
 
-status options = [draft , pending , publish,unpublished,flag ]
+status options = [draft,pending,publish,unpublished,flag ]
 
 is-remote = [0,1]
 
@@ -42,14 +42,14 @@ user-id = user ID
 ### All possible default params:
 
 ```
-wp cbxjresume-generate --total=100 --user-id=1 --status=1 --privacy=public --is-primary=1
+wp cbxresume-generate --total=100 --user-id=1 --status=published --privacy=public --is-primary=1
 ```
 
 total = number of resume to be created.
 
 user-id= system user id
 
-status = [0=draft, 1=publish, 2=unpublished, 3=pending, 4=flag]
+status options = [draft,pending,published,unpublished,flag ]
 
 privacy= [public,private]
 
