@@ -5,6 +5,7 @@ namespace Cbx\Careertoolkit\Factories\Resume;
 use Ramsey\Uuid\Uuid;
 use Cbx\Careertoolkit\Factories\Factory;
 use Faker\Factory as FakerFactory;
+use WP_User_Query;
 
 /**
  * Dummy resume data generate command
@@ -33,53 +34,81 @@ class DummyResumeGenerate extends Factory {
 		$start = microtime( true );
 
 		$total     = isset( $assoc_args['total'] ) && intval( $assoc_args['total'] ) ? intval( $assoc_args['total'] ) : 100;
-		$user_id   = isset( $assoc_args['user-id'] ) && intval( $assoc_args['user-id'] ) ? intval( $assoc_args['user-id'] ) : 1;
+		$user_id   = isset( $assoc_args['user-id'] ) && intval( $assoc_args['user-id'] ) ? intval( $assoc_args['user-id'] ) : 0;
 		$status    = isset( $assoc_args['status'] ) && intval( $assoc_args['status'] ) ? intval( $assoc_args['status'] ) : 'published';
 		$privacy   = isset( $assoc_args['privacy'] ) && strval( $assoc_args['privacy'] ) ? strval( $assoc_args['privacy'] ) : "public";
-		$isPrimary = isset( $assoc_args['is-primary'] ) && intval( $assoc_args['is-primary'] ) ? intval( $assoc_args['is-primary'] ) : 1;
+		$isPrimary = isset( $assoc_args['is-primary'] ) && intval( $assoc_args['is-primary'] ) ? intval( $assoc_args['is-primary'] ) : 0;
 
-		for ( $i = 0; $i < $total; $i ++ ) {
-			$formData = [
-				'add_by'     => 1,
-				'owner'    => $user_id,
-				'privacy'    => $privacy,
-				'status'     => $status,
-				'resume'     => json_encode( [
-					(object) $this->aboutMe(),
-					(object) $this->avatar(),
-					(object) $this->education(),
-					(object) $this->experience(),
-					(object) $this->skills(),
-					(object) $this->course(),
-					(object) $this->license(),
-					(object) $this->language(),
-					(object) $this->website(),
-					(object) $this->project(),
-					(object) $this->honor(),
-					(object) $this->publication(),
-					(object) $this->patent(),
-					(object) $this->hobby(),
-					(object) $this->volunteer(),
-				] ),
-				'is_primary' => $isPrimary,
-				'add_date'   => date( 'Y-m-d H:i:s' )
-			];
+		if ( $user_id == 0 ) {
+			// Query for the first user with the Administrator role
+			$user_query = new WP_User_Query( [
+				'role'    => 'Administrator',
+				'orderby' => 'ID',
+				'order'   => 'ASC',
+				'number'  => 1,
+			] );
 
-			
-			$slug = Uuid::uuid4();;
+			// Get the results
+			$users = $user_query->get_results();
 
-			$formData['slug'] = $slug;
-			$formData['uuid'] = $slug;
+			// Check if any users are found and output the first user's ID
+			if ( ! empty( $users ) ) {
+				$user_id = $users[0]->ID;
 
-			\Cbx\Resume\Models\Resume::query()->create( $formData );
+			}
 		}
+
+
+
+		if($user_id > 0){
+			for ( $i = 0; $i < $total; $i ++ ) {
+				$resume = [
+					'add_by'     => $user_id,
+					'owner'      => $user_id,
+					'privacy'    => $privacy,
+					'status'     => $status,
+					'resume'     => json_encode( [
+						(object) $this->aboutMe(),
+						(object) $this->avatar(),
+						(object) $this->education(),
+						(object) $this->experience(),
+						(object) $this->skills(),
+						(object) $this->course(),
+						(object) $this->license(),
+						(object) $this->language(),
+						(object) $this->website(),
+						(object) $this->project(),
+						(object) $this->honor(),
+						(object) $this->publication(),
+						(object) $this->patent(),
+						(object) $this->hobby(),
+						(object) $this->volunteer(),
+					] ),
+					'is_primary' => $isPrimary,
+					'add_date'   => date( 'Y-m-d H:i:s' )
+				];
+
+
+				$slug = Uuid::uuid4();;
+
+				$resume['slug'] = $slug;
+				$resume['uuid'] = $slug;
+
+				\Cbx\Resume\Models\Resume::query()->create( $resume );
+			}
+		}
+		else{
+			$i = 0;
+		}
+
+
 
 		$end = microtime( true );
 
 		$elapsed = $end - $start;
 
 
-		\WP_CLI::success( "Successfully $total dummy resume added. Execution time $elapsed seconds" );
+		\WP_CLI::success( "Successfully $i dummy resume(s) added. Execution time: $elapsed seconds" );
 
 	} //end method run
 
@@ -92,7 +121,7 @@ class DummyResumeGenerate extends Factory {
 	private function aboutMe() {
 		return [
 			"key"   => "aboutme",
-			"type"   => "aboutme",
+			"type"  => "aboutme",
 			"value" => [
 				(object) [
 					"new"             => true,
@@ -122,7 +151,7 @@ class DummyResumeGenerate extends Factory {
 	private function avatar() {
 		return [
 			"key"   => "avatar",
-			"type"   => "avatar",
+			"type"  => "avatar",
 			"value" => [
 				(object) [
 					"pic"     => "",
@@ -142,7 +171,7 @@ class DummyResumeGenerate extends Factory {
 	private function education() {
 		return [
 			"key"   => "education",
-			"type"   => "education",
+			"type"  => "education",
 			"value" => [
 				(object) [
 					"organization"   => FakerFactory::create()->company(),
@@ -187,7 +216,7 @@ class DummyResumeGenerate extends Factory {
 	private function experience() {
 		return [
 			"key"   => "experience",
-			"type"   => "experience",
+			"type"  => "experience",
 			"value" => [
 				(object) [
 					"title"          => FakerFactory::create()->jobTitle(),
@@ -226,7 +255,7 @@ class DummyResumeGenerate extends Factory {
 	private function skills() {
 		return [
 			"key"   => "skill",
-			"type"   => "skill",
+			"type"  => "skill",
 			"value" => [
 				(object) [
 					"name"  => FakerFactory::create()->name(),
@@ -265,7 +294,7 @@ class DummyResumeGenerate extends Factory {
 	private function course() {
 		return [
 			"key"   => "course",
-			"type"   => "course",
+			"type"  => "course",
 			"value" => [
 				(object) [
 					"name"                   => FakerFactory::create()->name(),
@@ -300,7 +329,7 @@ class DummyResumeGenerate extends Factory {
 	private function license() {
 		return [
 			"key"   => "license",
-			"type"   => "license",
+			"type"  => "license",
 			"value" => [
 				(object) [
 					"name"           => FakerFactory::create()->name(),
@@ -331,7 +360,7 @@ class DummyResumeGenerate extends Factory {
 	private function language() {
 		return [
 			"key"   => "language",
-			"type"   => "language",
+			"type"  => "language",
 			"value" => [
 				(object) [
 					"name"        => "Bangla",
@@ -354,7 +383,7 @@ class DummyResumeGenerate extends Factory {
 	private function website() {
 		return [
 			"key"   => "website",
-			"type"   => "website",
+			"type"  => "website",
 			"value" => [
 				(object) [
 					"category" => "PERSONAL",
@@ -389,7 +418,7 @@ class DummyResumeGenerate extends Factory {
 	private function project() {
 		return [
 			"key"   => "project",
-			"type"   => "project",
+			"type"  => "project",
 			"value" => [
 				(object) [
 					"title"          => FakerFactory::create()->name(),
@@ -456,7 +485,7 @@ class DummyResumeGenerate extends Factory {
 	private function honor() {
 		return [
 			"key"   => "honor",
-			"type"   => "honor",
+			"type"  => "honor",
 			"value" => [
 				(object) [
 					'title'       => FakerFactory::create()->title(),
@@ -485,7 +514,7 @@ class DummyResumeGenerate extends Factory {
 	private function publication() {
 		return [
 			"key"   => "publication",
-			"type"   => "publication",
+			"type"  => "publication",
 			"value" => [
 				(object) [
 					"name"        => FakerFactory::create()->name(),
@@ -508,7 +537,7 @@ class DummyResumeGenerate extends Factory {
 	private function patent() {
 		return [
 			"key"   => "patent",
-			"type"   => "patent",
+			"type"  => "patent",
 			"value" => [
 				(object) [
 					"title"             => "Electric Light Bulb",
@@ -534,7 +563,7 @@ class DummyResumeGenerate extends Factory {
 	private function hobby() {
 		return [
 			"key"   => "hobby",
-			"type"   => "hobby",
+			"type"  => "hobby",
 			"value" => [
 				(object) [
 					"name" => FakerFactory::create()->name()
@@ -561,7 +590,7 @@ class DummyResumeGenerate extends Factory {
 	private function volunteer() {
 		return [
 			"key"   => "volunteer",
-			"type"   => "volunteer",
+			"type"  => "volunteer",
 			"value" => [
 				(object) [
 					"companyName"    => FakerFactory::create()->company(),

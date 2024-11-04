@@ -18,7 +18,7 @@ This plugin provides command line interface for creating dummy job and resume.
 ### All possible default params:
 
 ```
-wp cbxjob-generate --total=100 --status=published --is-remote=0 --is-featured=1 --is-filled=0 --user-id=1 --salary-unit=monthly --currency=USD
+wp cbxjob-generate --total=100 --status=published --is-remote=0 --is-featured=1 --is-filled=0 --salary-unit=monthly --currency=USD
 ```
 
 total = number of jobs to be created.
@@ -42,7 +42,7 @@ user-id = user ID
 ### All possible default params:
 
 ```
-wp cbxresume-generate --total=100 --user-id=1 --status=published --privacy=public --is-primary=1
+wp cbxresume-generate --total=100 --status=published --privacy=public --is-primary=0
 ```
 
 total = number of resume to be created.
