@@ -33,7 +33,7 @@ is-filled= [0,1]
 
 currency=[USD,BDT, etc]
 
-salary-unit =[yearly,monthly,yearly,daily]
+salary-unit =[yearly,monthly,weakly,daily]
 
 user-id = user ID
 
