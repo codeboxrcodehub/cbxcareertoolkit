@@ -37,12 +37,12 @@ salary-unit =[yearly,monthly,weakly,daily]
 
 user-id = user ID
 
-## cbxresume
+## comfortresume
 
 ### All possible default params:
 
 ```
-wp cbxresume-generate --total=100 --status=published --privacy=public --is-primary=0
+wp comfortresume-generate --total=100 --status=published --privacy=public --is-primary=0
 ```
 
 total = number of resume to be created.

@@ -19,7 +19,7 @@ class DummyResumeGenerate extends Factory {
 	 * @since 1.0.0
 	 */
 	public function wp_cli_register_commands() {
-		\WP_CLI::add_command( 'cbxresume-generate', [ $this, "run" ] );
+		\WP_CLI::add_command( 'comfortresume-generate', [ $this, "run" ] );
 	} //end method wp_cli_register_commands
 
 	/**
@@ -94,7 +94,7 @@ class DummyResumeGenerate extends Factory {
 				$resume['slug'] = $slug;
 				$resume['uuid'] = $slug;
 
-				\Cbx\Resume\Models\Resume::query()->create( $resume );
+				\Comfort\Resume\Models\Resume::query()->create( $resume );
 			}
 		}
 		else{
