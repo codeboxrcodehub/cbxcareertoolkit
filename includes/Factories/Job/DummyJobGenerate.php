@@ -19,7 +19,7 @@ class DummyJobGenerate extends Factory {
 	 * @since 1.0.0
 	 */
 	public function wp_cli_register_commands() {
-		\WP_CLI::add_command( 'cbxjob-generate', [ $this, "run" ] );
+		\WP_CLI::add_command( 'comfortjob-generate', [ $this, "run" ] );
 	} //end method wp_cli_register_commands
 
 	/**
@@ -106,13 +106,13 @@ class DummyJobGenerate extends Factory {
 
 				$slugify = new Slugify();
 
-				$existing_slugs = \Cbx\Job\Models\CBXJob::query()->pluck( 'slug' )->toArray();
+				$existing_slugs = \Comfort\Job\Models\ComfortJob::query()->pluck( 'slug' )->toArray();
 				$temp_slug      = $slugify->slugify( $job['title'] );
-				$slug           = \Cbx\Job\Helpers\CBXJobHelpers::generate_unique_slug( $temp_slug, $existing_slugs );
+				$slug           = \Comfort\Job\Helpers\ComfortJobHelpers::generate_unique_slug( $temp_slug, $existing_slugs );
 
 				$job['slug'] = $slug;
 
-				\Cbx\Job\Models\CBXJob::query()->create( $job );
+				\Comfort\Job\Models\ComfortJob::query()->create( $job );
 			}
 		}
 		else{

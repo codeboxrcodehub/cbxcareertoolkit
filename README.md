@@ -13,12 +13,12 @@ This plugin provides command line interface for creating dummy job and resume.
 
 # How to use:
 
-## cbxjob
+## comfortjob
 
 ### All possible default params:
 
 ```
-wp cbxjob-generate --total=100 --status=published --is-remote=0 --is-featured=1 --is-filled=0 --salary-unit=monthly --currency=USD
+wp comfortjob-generate --total=100 --status=published --is-remote=0 --is-featured=1 --is-filled=0 --salary-unit=monthly --currency=USD
 ```
 
 total = number of jobs to be created.
