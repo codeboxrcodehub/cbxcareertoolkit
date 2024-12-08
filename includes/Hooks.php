@@ -11,7 +11,7 @@ class Hooks {
 
 	public function __construct() {
 		$this->init_commands();
-		$this->update_checker();
+		//$this->update_checker();
 	}
 
 	public function init_commands() {
