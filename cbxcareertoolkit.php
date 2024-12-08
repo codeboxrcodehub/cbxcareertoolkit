@@ -12,7 +12,7 @@
  * Description:       Helper plugin for CBX Career plugins
  * Version:           1.0.0
  * Requires at least: 3.7
- * Requires PHP:      7.4
+ * Requires PHP:      8.2
  * Author:            Codeboxr
  * Author URI:        https://codeboxr.com
  * License:           GPL-2.0+
