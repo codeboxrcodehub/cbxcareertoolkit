@@ -26,7 +26,6 @@ class EasyPluginChecker extends Factory{
 	 * @since 1.0.0
 	 */
 	public function run( $args, $assoc_args ) {
-		\WP_CLI::success("Plugin check output written to");
 		global $wpdb;
 
 		$plugin = $args[0];
