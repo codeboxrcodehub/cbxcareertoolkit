@@ -56,8 +56,6 @@ class DummyJobGenerate extends Factory {
 			// Get the results
 			$users = $user_query->get_results();
 
-			//write_log($users);
-
 			// Check if any users are found and output the first user's ID
 			if ( ! empty( $users ) ) {
 				$user_id = $users[0]->ID;

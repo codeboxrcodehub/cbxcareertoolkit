@@ -35,7 +35,12 @@ class EasyPluginChecker extends Factory{
 
 		// Set default output file if not provided
 		if (empty($output_file)) {
-			$output_file = ABSPATH . 'plugin-check.log';
+			/*if($format == 'json'){
+				$output_file = ABSPATH . 'plugin-check.json';
+			}*/
+			//else{
+				$output_file = ABSPATH . 'plugin-check.log';
+			//}
 		}
 
 		// Build the command to check the plugin

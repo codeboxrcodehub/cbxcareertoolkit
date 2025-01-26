@@ -1,8 +1,16 @@
-CBX Career Dev Toolkit
+=== CBX Career Toolkit ===
+Contributors: codeboxr, manchumahara
+Requires at least: 5.3
+Tested up to: 6.7.1
+Stable tag: 1.0.1
+License: MIT
+License URI: https://github.com/codeboxrcodehub/cbxphpspreadsheet/blob/master/LICENSE.txt
+
+Comfort HRM plugin management toolkits
 
 == Description ==
 
-This plugin provides command line interface for creating dummy job and resume.
+This plugin provides command line interface for creating dummy job, resume and other misc commands needed for better management for HRM plugins.
 
 == Installation ==
 
@@ -13,7 +21,8 @@ This plugin provides command line interface for creating dummy job and resume.
 
 
 == Changelog ==
-
+= 1.0.1 =
+* Add new command 'easy-plugin-checker' that extends the plugin Plugin Check and outputs in a file
 
 = 1.0.0 =
 * First public release
