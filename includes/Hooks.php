@@ -4,6 +4,7 @@ namespace Cbx\Careertoolkit;
 
 use Cbx\Careertoolkit\Factories\Resume\DummyResumeGenerate;
 use Cbx\Careertoolkit\Factories\Job\DummyJobGenerate;
+use Cbx\Careertoolkit\Factories\Misc\EasyPluginChecker;
 
 use Cbx\Careertoolkit\PDUpdater;
 
@@ -18,6 +19,7 @@ class Hooks {
 		if ( class_exists( "WP_CLI" ) ) {
 			$resume = new DummyResumeGenerate();
 			$jobs   = new DummyJobGenerate();
+			$epc   = new EasyPluginChecker();
 		}
 	}//end method init_commands
 

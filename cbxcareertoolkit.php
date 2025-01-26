@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * @link              https://codeboxr.com
@@ -10,8 +9,8 @@
  * Plugin Name:       CBX Career Toolkit
  * Plugin URI:        https://github.com/codeboxrcodehub/cbxcareertoolkit/
  * Description:       Helper plugin for CBX Career plugins
- * Version:           1.0.0
- * Requires at least: 3.7
+ * Version:           1.0.1
+ * Requires at least: 5.3
  * Requires PHP:      8.2
  * Author:            Codeboxr
  * Author URI:        https://codeboxr.com
@@ -27,7 +26,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 defined( 'CBXCAREER_TOOLKIT_PLUGIN_NAME' ) or define( 'CBXCAREER_TOOLKIT_PLUGIN_NAME', 'cbxcareertoolkit' );
-defined( 'CBXCAREER_TOOLKIT_PLUGIN_VERSION' ) or define( 'CBXCAREER_TOOLKIT_PLUGIN_VERSION', '1.0.0' );
+defined( 'CBXCAREER_TOOLKIT_PLUGIN_VERSION' ) or define( 'CBXCAREER_TOOLKIT_PLUGIN_VERSION', '1.0.1' );
 defined( 'CBXCAREER_TOOLKIT_BASE_NAME' ) or define( 'CBXCAREER_TOOLKIT_BASE_NAME', plugin_basename( __FILE__ ) );
 defined( 'CBXCAREER_TOOLKIT_ROOT_PATH' ) or define( 'CBXCAREER_TOOLKIT_ROOT_PATH', plugin_dir_path( __FILE__ ) );
 defined( 'CBXCAREER_TOOLKIT_ROOT_URL' ) or define( 'CBXCAREER_TOOLKIT_ROOT_URL', plugin_dir_url( __FILE__ ) );
