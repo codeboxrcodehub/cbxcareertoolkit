@@ -15,7 +15,7 @@ class Helper {
 	 * @since 1.0.0
 	 */
 	public function load_plugin_textdomain() {
-		load_plugin_textdomain( 'cbxcareertoolkit', false, CBXCAREER_TOOLKIT_ROOT_PATH . 'languages/' );
+		load_plugin_textdomain( 'cbxcareertoolkit', false, CBXCAREERTOOLKIT_ROOT_PATH . 'languages/' );
 	}//end method load_plugin_textdomain
 
 	/**
@@ -118,4 +118,30 @@ class Helper {
 		];
 
 	}//end method plugin_info
+
+	/**
+	 * Filters the array of row meta for each/specific plugin in the Plugins list table.
+	 * Appends additional links below each/specific plugin on the plugins page.
+	 *
+	 * @access  public
+	 *
+	 * @param  array  $links_array  An array of the plugin's metadata
+	 * @param  string  $plugin_file_name  Path to the plugin file
+	 * @param  array  $plugin_data  An array of plugin data
+	 * @param  string  $status  Status of the plugin
+	 *
+	 * @return  array       $links_array
+	 */
+	public function plugin_row_meta( $links_array, $plugin_file_name, $plugin_data, $status ) {
+		if ( strpos( $plugin_file_name, CBXCAREERTOOLKIT_BASE_NAME ) !== false ) {
+			if ( ! function_exists( 'is_plugin_active' ) ) {
+				include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+			}
+
+			$links_array[] = '<a target="_blank" style="color:#005ae0 !important; font-weight: bold;" href="https://github.com/codeboxrcodehub/cbxcareertoolkit" aria-label="' . esc_attr__( 'Github Repo', 'cbxcareertoolkit' ) . '">' . esc_html__( 'Github Repo', 'cbxcareertoolkit' ) . '</a>';
+			$links_array[] = '<a target="_blank" style="color:#005ae0 !important; font-weight: bold;" href="https://github.com/codeboxrcodehub/cbxcareertoolkit/releases" aria-label="' . esc_attr__( 'Download', 'cbxcareertoolkit' ) . '">' . esc_html__( 'Download Latest', 'cbxcareertoolkit' ) . '</a>';
+		}
+
+		return $links_array;
+	}//end plugin_row_meta
 }//end class Helper

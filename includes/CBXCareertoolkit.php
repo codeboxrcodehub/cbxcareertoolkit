@@ -1,8 +1,10 @@
 <?php
 
-namespace Cbx\Careertoolkit;
+//namespace Cbx\Careertoolkit;
 
-class CBXCareertoolkit {
+use Cbx\Careertoolkit\Hooks;
+
+final class CBXCareertoolkit {
 
 	/**
 	 * The single instance of the class.
@@ -38,10 +40,13 @@ class CBXCareertoolkit {
 	protected $hooks;
 
 	public function __construct() {
-		$this->plugin_name = CBXCAREER_TOOLKIT_PLUGIN_NAME;
-		$this->version     = CBXCAREER_TOOLKIT_PLUGIN_VERSION;
+		$this->plugin_name = CBXCAREERTOOLKIT_PLUGIN_NAME;
+		$this->version     = CBXCAREERTOOLKIT_PLUGIN_VERSION;
+
+		$this->include_files();
+
 		$this->hooks       = new Hooks();
-	}
+	}//end constructor
 
 	/**
 	 * Main cbx devtool Instance.
@@ -58,12 +63,10 @@ class CBXCareertoolkit {
 		}
 
 		return self::$instance;
-	}
+	}//end method instance
 
-	public static function activate() {
-	}//end method activate
-
-	public static function deactivate() {
-	}//end method activate
+	private function include_files() {
+		require_once CBXCAREERTOOLKIT_ROOT_PATH . "lib/autoload.php";
+	}//end method include_files
 
 }//end method CBXCareertoolkit
