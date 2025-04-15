@@ -6,13 +6,15 @@ use Cbx\Careertoolkit\Factories\Resume\DummyResumeGenerate;
 use Cbx\Careertoolkit\Factories\Job\DummyJobGenerate;
 use Cbx\Careertoolkit\Factories\Misc\EasyPluginChecker;
 
-use Cbx\Careertoolkit\PDUpdater;
-
 class Hooks {
 
 	public function __construct() {
 		$this->init_commands();
-		//$this->update_checker();
+		$this->update_checker();
+
+		$helper = new Helper();
+
+		add_filter( 'init', [ $helper, 'load_plugin_textdomain' ]);
 	}
 
 	public function init_commands() {
@@ -24,18 +26,18 @@ class Hooks {
 	}//end method init_commands
 
 	/**
-	 * Plugin update checker from github (https://github.com/codeboxrcodehub/cbxcareertoolkit)
+	 * Plugin updater hooks
 	 *
 	 * @return void
 	 */
 	public function update_checker() {
 
-		$github_token = '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';
+		$helper = new Helper();
 
-		$updater = new PDUpdater( CBXCAREER_TOOLKIT_ROOT_PATH . 'cbxcareertoolkit.php' );
-		$updater->set_username( 'codeboxrcodehub' );
-		$updater->set_repository( 'cbxcareertoolkit' );
-		$updater->authorize( $github_token );
-		$updater->initialize();
+		add_filter( 'pre_set_site_transient_update_plugins', [
+			$helper,
+			'pre_set_site_transient_update_plugins'
+		] );
+		add_filter( 'plugins_api', [ $helper, 'plugin_info' ], 10, 3 );
 	}//end method update_checker
 }//end class Hooks
