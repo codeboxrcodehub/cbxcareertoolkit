@@ -154,8 +154,8 @@ class DummyResumeGenerate extends Factory {
 			"type"  => "avatar",
 			"value" => [
 				(object) [
-					"pic"     => "",
-					"pic_url" => FakerFactory::create()->imageUrl( 360, 360, 'animals', true ),
+					"profile_pic"     => "",
+					"profile_pic_url" => "",
 				]
 			],
 			"fixed" => true,
