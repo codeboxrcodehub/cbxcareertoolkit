@@ -93,7 +93,7 @@ class DummyJobGenerate extends Factory {
 					'company_website'     => FakerFactory::create()->url(),
 					'company_logo'        => '',
 					'company_logo_source' => 'job',
-					'company_logo_url'    => FakerFactory::create()->imageUrl( 360, 360, 'company', true ),
+					'company_logo_url'    => '',
 				];
 
 
