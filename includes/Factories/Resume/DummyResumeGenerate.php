@@ -83,6 +83,8 @@ class DummyResumeGenerate extends Factory {
 						(object) $this->patent(),
 						(object) $this->hobby(),
 						(object) $this->volunteer(),
+						(object) $this->customSection(),
+						(object) $this->audioVideo()
 					] ),
 					'is_primary' => $isPrimary,
 					'add_date'   => date( 'Y-m-d H:i:s' )
@@ -177,8 +179,8 @@ class DummyResumeGenerate extends Factory {
 					"organization"   => FakerFactory::create()->company(),
 					"degreeName"     => "Secondary School Certificate",
 					"fieldsOfStudy"  => "Science",
-					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
-					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
+					"startMonthYear" => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
+					"endMonthYear"   => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					"grade"          => "5.00",
 					"activities"     => "Programming, Games",
 					"notes"          => FakerFactory::create()->text(),
@@ -187,8 +189,8 @@ class DummyResumeGenerate extends Factory {
 					"organization"   => FakerFactory::create()->company(),
 					"degreeName"     => "Diploma In Computer Technology",
 					"fieldsOfStudy"  => "CMT",
-					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
-					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
+					"startMonthYear" => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
+					"endMonthYear"   => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					"grade"          => "3.84",
 					"activities"     => "Programming, Games",
 					"notes"          => FakerFactory::create()->text(),
@@ -197,8 +199,8 @@ class DummyResumeGenerate extends Factory {
 					"organization"   => FakerFactory::create()->company(),
 					"degreeName"     => "Bachelors",
 					"fieldsOfStudy"  => "CSE",
-					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
-					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
+					"startMonthYear" => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
+					"endMonthYear"   => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					"grade"          => "3.84",
 					"activities"     => "Programming, Games",
 					"notes"          => FakerFactory::create()->text(),
@@ -221,24 +223,24 @@ class DummyResumeGenerate extends Factory {
 				(object) [
 					"title"          => FakerFactory::create()->jobTitle(),
 					"company"        => FakerFactory::create()->company(),
-					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
-					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
+					"startMonthYear" => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
+					"endMonthYear"   => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					"description"    => FakerFactory::create()->text( 300 ),
 					"location"       => FakerFactory::create()->address(),
 				],
 				(object) [
 					"title"          => FakerFactory::create()->jobTitle(),
 					"company"        => FakerFactory::create()->company(),
-					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
-					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
+					"startMonthYear" => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
+					"endMonthYear"   => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					"description"    => FakerFactory::create()->text( 300 ),
 					"location"       => FakerFactory::create()->address(),
 				],
 				(object) [
 					"title"          => FakerFactory::create()->jobTitle(),
 					"company"        => FakerFactory::create()->company(),
-					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
-					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
+					"startMonthYear" => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
+					"endMonthYear"   => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					"description"    => FakerFactory::create()->text( 300 ),
 					"location"       => FakerFactory::create()->address(),
 				]
@@ -334,16 +336,16 @@ class DummyResumeGenerate extends Factory {
 				(object) [
 					"name"           => FakerFactory::create()->name(),
 					"company"        => FakerFactory::create()->company(),
-					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
-					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
+					"startMonthYear" => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
+					"endMonthYear"   => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					"licenseNumber"  => "349U2-TUT4H-6HGGJ-2CHUK",
 					"url"            => FakerFactory::create()->url(),
 				],
 				(object) [
 					"name"           => FakerFactory::create()->name(),
 					"company"        => FakerFactory::create()->company(),
-					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
-					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
+					"startMonthYear" => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
+					"endMonthYear"   => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					"licenseNumber"  => "349U2-TUT4H-6HGGJ-2CHUK",
 					"url"            => FakerFactory::create()->url(),
 				]
@@ -364,11 +366,11 @@ class DummyResumeGenerate extends Factory {
 			"value" => [
 				(object) [
 					"name"        => "Bangla",
-					"proficiency" => "Native or bilingual proficiency"
+					"proficiency" => "native"
 				],
 				(object) [
 					"name"        => "English",
-					"proficiency" => "Native or bilingual proficiency"
+					"proficiency" => "professional"
 				]
 			]
 		];
@@ -429,8 +431,8 @@ class DummyResumeGenerate extends Factory {
 						FakerFactory::create()->name()
 					] ),
 					"client"         => FakerFactory::create()->company(),
-					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
-					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
+					"startMonthYear" => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
+					"endMonthYear"   => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					"description"    => FakerFactory::create()->text( 300 ),
 				],
 				(object) [
@@ -442,8 +444,8 @@ class DummyResumeGenerate extends Factory {
 						FakerFactory::create()->name()
 					] ),
 					"client"    	 => FakerFactory::create()->company(),
-					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
-					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
+					"startMonthYear" => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
+					"endMonthYear"   => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					"description"    => FakerFactory::create()->text( 300 ),
 				],
 				(object) [
@@ -455,8 +457,8 @@ class DummyResumeGenerate extends Factory {
 						FakerFactory::create()->name()
 					] ),
 					"client"    	 => FakerFactory::create()->company(),
-					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
-					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
+					"startMonthYear" => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
+					"endMonthYear"   => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					"description"    => FakerFactory::create()->text( 300 ),
 				],
 				(object) [
@@ -468,8 +470,8 @@ class DummyResumeGenerate extends Factory {
 						FakerFactory::create()->name()
 					] ),
 					"client"         => FakerFactory::create()->company(),
-					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
-					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
+					"startMonthYear" => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
+					"endMonthYear"   => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					"description"    => FakerFactory::create()->text( 300 ),
 				]
 			]
@@ -491,14 +493,14 @@ class DummyResumeGenerate extends Factory {
 					'title'       => FakerFactory::create()->title(),
 					'association' => FakerFactory::create()->company(),
 					'issuer'      => FakerFactory::create()->company(),
-					'issueDate'   => FakerFactory::create()->date( "m-Y" ),
+					'issueDate'   => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					'description' => FakerFactory::create()->text( 150 ),
 				],
 				(object) [
 					'title'       => FakerFactory::create()->title(),
 					'association' => FakerFactory::create()->company(),
 					'issuer'      => FakerFactory::create()->company(),
-					'issueDate'   => FakerFactory::create()->date( "m-Y" ),
+					'issueDate'   => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					'description' => FakerFactory::create()->text( 150 ),
 				],
 			],
@@ -519,7 +521,7 @@ class DummyResumeGenerate extends Factory {
 				(object) [
 					"name"        => FakerFactory::create()->name(),
 					"publisher"   => "Rokomary",
-					"date"        => FakerFactory::create()->date( "m-Y" ),
+					"date"        => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					"authors"     => FakerFactory::create()->name(),
 					"url"         => FakerFactory::create()->url(),
 					"description" => FakerFactory::create()->text( 100 ),
@@ -596,9 +598,48 @@ class DummyResumeGenerate extends Factory {
 					"companyName"    => FakerFactory::create()->company(),
 					"role"           => FakerFactory::create()->jobTitle(),
 					"cause"          => "Children",
-					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
-					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
+					"startMonthYear" => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
+					"endMonthYear"   => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					"description"    => FakerFactory::create()->text( 150 ),
+				]
+			]
+		];
+	} //end method volunteer
+
+	/**
+	 * audioVideo fake data generate
+	 *
+	 * @return array
+	 * @since 1.0.0
+	 */
+	private function audioVideo() {
+		return [
+			"key"   => "audio_video",
+			"type"  => "audio_video",
+			"value" => [
+				(object) [
+					"type"    => "video",
+					"title"   => FakerFactory::create()->jobTitle(),
+					"link"    => FakerFactory::create()->url(),
+				]
+			]
+		];
+	} //end method volunteer
+
+	/**
+	 * custom section fake data generate
+	 *
+	 * @return array
+	 * @since 1.0.0
+	 */
+	private function customSection() {
+		return [
+			"key"   => "custom_section_customtitle",
+			"type"  => "custom_section",
+			"value" => [
+				(object) [
+					"title"    => FakerFactory::create()->title(),
+					"text"     => FakerFactory::create()->text( 300 ),
 				]
 			]
 		];
