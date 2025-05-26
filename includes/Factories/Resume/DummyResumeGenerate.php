@@ -84,7 +84,7 @@ class DummyResumeGenerate extends Factory {
 						(object) $this->hobby(),
 						(object) $this->volunteer(),
 						(object) $this->customSection(),
-						(object) $this->audioVideo()
+						(object) $this->audioVideo(),
 					] ),
 					'is_primary' => $isPrimary,
 					'add_date'   => date( 'Y-m-d H:i:s' )
@@ -133,10 +133,9 @@ class DummyResumeGenerate extends Factory {
 					"email"           => FakerFactory::create()->email(),
 					"phonePreFix"     => "+880",
 					"phone"           => FakerFactory::create()->phoneNumber(),
-					"address_1"       => FakerFactory::create()->streetAddress(), //todo: street_address()
-					"address_2"       => 'Apt. ' . FakerFactory::create()->randomDigitNotNull(), //city().' - '.postcode()
+					"address_1"       => FakerFactory::create()->address(), //todo: street_address()
+					"address_2"       => FakerFactory::create()->address(), //city().' - '.postcode()
 					"about"           => FakerFactory::create()->realText( 300, 2 ),
-					//"profile_pic_url" => FakerFactory::create()->imageUrl( 360, 360, 'animals', true ),
 					"profile_pic_url" => "",
 					"profile_pic"     => "",
 				]
@@ -204,7 +203,6 @@ class DummyResumeGenerate extends Factory {
 		$degreeFormat = FakerFactory::create()->randomElement($degrees);
 		$field = FakerFactory::create()->randomElement($fields);
 		$degreeName = sprintf($degreeFormat, $field);
-
 		return [
 			"key"   => "education",
 			"type"  => "education",
@@ -223,8 +221,8 @@ class DummyResumeGenerate extends Factory {
 					"organization"   => FakerFactory::create()->company(),
 					"degreeName"     => "Diploma In Computer Technology",
 					"fieldsOfStudy"  => "CMT",
-					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
-					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
+					"startMonthYear" => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
+					"endMonthYear"   => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					"grade"          => "3.84",
 					"activities"     => "Programming, Games",
 					"notes"          => FakerFactory::create()->text(),
@@ -233,8 +231,8 @@ class DummyResumeGenerate extends Factory {
 					"organization"   => FakerFactory::create()->company(),
 					"degreeName"     => "Bachelors",
 					"fieldsOfStudy"  => "CSE",
-					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
-					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
+					"startMonthYear" => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
+					"endMonthYear"   => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					"grade"          => "3.84",
 					"activities"     => "Programming, Games",
 					"notes"          => FakerFactory::create()->text(),
@@ -635,6 +633,45 @@ class DummyResumeGenerate extends Factory {
 					"startMonthYear" => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					"endMonthYear"   => ltrim(FakerFactory::create()->date( "m-Y" ), '0'),
 					"description"    => FakerFactory::create()->text( 150 ),
+				]
+			]
+		];
+	} //end method volunteer
+
+	/**
+	 * audioVideo fake data generate
+	 *
+	 * @return array
+	 * @since 1.0.0
+	 */
+	private function audioVideo() {
+		return [
+			"key"   => "audio_video",
+			"type"  => "audio_video",
+			"value" => [
+				(object) [
+					"type"    => "video",
+					"title"   => FakerFactory::create()->jobTitle(),
+					"link"    => FakerFactory::create()->url(),
+				]
+			]
+		];
+	} //end method volunteer
+
+	/**
+	 * custom section fake data generate
+	 *
+	 * @return array
+	 * @since 1.0.0
+	 */
+	private function customSection() {
+		return [
+			"key"   => "custom_section_customtitle",
+			"type"  => "custom_section",
+			"value" => [
+				(object) [
+					"title"    => FakerFactory::create()->title(),
+					"text"     => FakerFactory::create()->text( 300 ),
 				]
 			]
 		];
