@@ -428,7 +428,7 @@ class DummyResumeGenerate extends Factory {
 						FakerFactory::create()->name(),
 						FakerFactory::create()->name()
 					] ),
-					"occupation"     => FakerFactory::create()->jobTitle(),
+					"client"         => FakerFactory::create()->company(),
 					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
 					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
 					"description"    => FakerFactory::create()->text( 300 ),
@@ -441,7 +441,7 @@ class DummyResumeGenerate extends Factory {
 						FakerFactory::create()->name(),
 						FakerFactory::create()->name()
 					] ),
-					"occupation"     => FakerFactory::create()->jobTitle(),
+					"client"    	 => FakerFactory::create()->company(),
 					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
 					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
 					"description"    => FakerFactory::create()->text( 300 ),
@@ -454,7 +454,7 @@ class DummyResumeGenerate extends Factory {
 						FakerFactory::create()->name(),
 						FakerFactory::create()->name()
 					] ),
-					"occupation"     => FakerFactory::create()->jobTitle(),
+					"client"    	 => FakerFactory::create()->company(),
 					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
 					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
 					"description"    => FakerFactory::create()->text( 300 ),
@@ -467,7 +467,7 @@ class DummyResumeGenerate extends Factory {
 						FakerFactory::create()->name(),
 						FakerFactory::create()->name()
 					] ),
-					"occupation"     => FakerFactory::create()->jobTitle(),
+					"client"         => FakerFactory::create()->company(),
 					"startMonthYear" => FakerFactory::create()->date( "m-Y" ),
 					"endMonthYear"   => FakerFactory::create()->date( "m-Y" ),
 					"description"    => FakerFactory::create()->text( 300 ),
@@ -489,14 +489,14 @@ class DummyResumeGenerate extends Factory {
 			"value" => [
 				(object) [
 					'title'       => FakerFactory::create()->title(),
-					'occupation'  => FakerFactory::create()->jobTitle(),
+					'association' => FakerFactory::create()->company(),
 					'issuer'      => FakerFactory::create()->company(),
 					'issueDate'   => FakerFactory::create()->date( "m-Y" ),
 					'description' => FakerFactory::create()->text( 150 ),
 				],
 				(object) [
 					'title'       => FakerFactory::create()->title(),
-					'occupation'  => FakerFactory::create()->jobTitle(),
+					'association' => FakerFactory::create()->company(),
 					'issuer'      => FakerFactory::create()->company(),
 					'issueDate'   => FakerFactory::create()->date( "m-Y" ),
 					'description' => FakerFactory::create()->text( 150 ),
