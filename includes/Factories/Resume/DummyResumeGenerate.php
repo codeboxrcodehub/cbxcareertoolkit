@@ -96,7 +96,7 @@ class DummyResumeGenerate extends Factory {
 				$resume['slug'] = $slug;
 				$resume['uuid'] = $slug;
 
-				\Comfort\Resume\Models\Resume::query()->create( $resume );
+				\Comfort\Hrm\Resume\Models\Resume::query()->create( $resume );
 			}
 		}
 		else{

@@ -104,13 +104,13 @@ class DummyJobGenerate extends Factory {
 
 				$slugify = new Slugify();
 
-				$existing_slugs = \Comfort\Job\Models\ComfortJob::query()->pluck( 'slug' )->toArray();
+				$existing_slugs = \Comfort\Hrm\Job\Models\ComfortJob::query()->pluck( 'slug' )->toArray();
 				$temp_slug      = $slugify->slugify( $job['title'] );
-				$slug           = \Comfort\Job\Helpers\ComfortJobHelpers::generate_unique_slug( $temp_slug, $existing_slugs );
+				$slug           = \Comfort\Hrm\Job\Helpers\ComfortJobHelpers::generate_unique_slug( $temp_slug, $existing_slugs );
 
 				$job['slug'] = $slug;
 
-				\Comfort\Job\Models\ComfortJob::query()->create( $job );
+				\Comfort\Hrm\Job\Models\ComfortJob::query()->create( $job );
 			}
 		}
 		else{
